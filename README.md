@@ -491,6 +491,40 @@ noHaceNadaTampoco = noHaceNada;
     Crear variables que soporten varios tipos a la vez.
     Comprobar el tipo de un objeto.
 
+
+
+# 5.38 Métodos dentro de objetos
+```typescript
+(() => {
+
+    // 1. DEFINICIÓN DEL TIPO + ASIGNACIÓN INICIAL
+    // Estamos diciendo: "La variable flash tendrá ESTA forma exacta"
+    let flash: { name: string, age?: number, powers: string[], getName?: () => string } = {
+        name: 'Barry Allen',
+        age: 24,
+        powers: ['Súper velocidad', 'Viajar en el tiempo']
+    }
+
+    // 2. REASIGNACIÓN (Cambiamos el objeto)
+    // Como 'flash' se definió con let, podemos cambiar su valor, 
+    // pero debemos respetar el "contrato" (el tipo) que definimos arriba.
+    flash = {
+        name: 'Clark Kent',
+        // age: 60,  <-- Esto está comentado. Como 'age' tiene '?', NO es obligatorio ponerlo.
+        powers: ['Súper fuerza'],
+        getName() {
+            return this.name;
+        }
+    }
+
+    // 3. EJECUCIÓN
+    // Llamamos al método. Nota el uso del ?. (optional chaining) que explico abajo
+    console.log( flash.getName?.() ); 
+
+})()
+```
+
+
 # Clean Code y deuda técnica
 Principio de Responsabilidad única:
 cada tarea hace una cosa y la hace bien.
