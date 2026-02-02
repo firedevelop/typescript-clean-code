@@ -918,7 +918,125 @@ Parámetros REST
 })()
 ```
 
+## 4.34 Tipo Function
+En lugar de dejar let myFunction; (que es any y un peligro), vamos a definir la firma exacta que debe tener la variable para aceptar cada función.
+```typescript
+(() => {
+
+    // --- FUNCIONES ORIGINALES ---
+    const addNumbers = ( a: number, b: number ) => a + b;
+    const greet = ( name: string ) => `Hola ${ name }`;
+    const saveTheWorld = () => `El mundo está salvado!`;
+
+
+    // ---------------------------------------------------------
+    // CASO 1: Tipado para aceptar 'addNumbers'
+    // ---------------------------------------------------------
+    // "Esta variable SOLO acepta funciones que reciban 2 números y devuelvan un número"
+    let myFunctionNumbers: (y: number, x: number) => number;
+
+    myFunctionNumbers = addNumbers; 
+    console.log( myFunctionNumbers(10, 20) ); // ✅ Correcto: 30
+    
+    // myFunctionNumbers = greet; // ❌ ERROR: 'greet' no devuelve un número ni recibe 2 argumentos.
+
+
+    // ---------------------------------------------------------
+    // CASO 2: Tipado para aceptar 'greet'
+    // ---------------------------------------------------------
+    // "Esta variable SOLO acepta funciones que reciban 1 string y devuelvan un string"
+    let myFunctionString: (name: string) => string;
+
+    myFunctionString = greet;
+    console.log( myFunctionString('Manuel') ); // ✅ Correcto: Hola Manuel
+
+    // myFunctionString( 1, 2 ); // ❌ ERROR: TypeScript te avisa AQUÍ (no al ejecutar) de que los argumentos están mal.
+
+
+    // ---------------------------------------------------------
+    // CASO 3: Tipado para aceptar 'saveTheWorld'
+    // ---------------------------------------------------------
+    // "Esta variable SOLO acepta funciones sin argumentos que devuelvan un string"
+    let myFunctionVoid: () => string;
+
+    myFunctionVoid = saveTheWorld;
+    console.log( myFunctionVoid() ); // ✅ Correcto
+
+})();
+
+```
+
+Casos de maximo tipado:
+```typescript
+// 1. Añadir máximo de tipados
+// -------------------------------------------------
+function sumar( a: number, b: number ): number {
+    return a + b;
+}
+
+// Aquí definimos la firma completa de la variable
+let total: ( a: number, b: number ) => number;
+
+total = sumar;
+console.log( total(2, 3) );
 
 
 
+// 2. Tipado de Arrays y retorno
+// -------------------------------------------------
+const contar = ( heroes: string[] ): number => {
+    return heroes.length;
+}
 
+const superHeroes: string[] = ["Flash", "Arrow", "Superman", "Linterna Verde"];
+contar( superHeroes );
+
+
+
+// 3. Parámetros por defecto (Default params)
+// -------------------------------------------------
+// Hemos añadido "= true" para que sea un valor por defecto real
+const llamarBatman = ( llamar: boolean = true ): void => {
+    if( llamar ){
+        console.log("Batiseñal activada");
+    }
+}
+
+llamarBatman(); // Ahora funciona sin argumentos (usa true por defecto)
+
+
+
+// 4. Rest Parameters (El operador ...)
+// -------------------------------------------------
+// El rest operator junta todos los argumentos en un array de strings
+const unirheroes = ( ...personas: string[] ): string => {
+    return personas.join(", ");
+}
+
+// Se usa enviando argumentos sueltos:
+console.log( unirheroes("Thor", "Ironman", "Spiderman") );
+
+
+
+// 5. Tipo función complejo (Tu ejercicio final)
+// -------------------------------------------------
+
+// Primero arreglamos la función original (tenía errores de sintaxis)
+const noHaceNada = ( numero: number, texto: string, booleano: boolean, arreglo: string[] ): void => {
+    // No hace nada
+}
+
+// AHORA EL RETO: Crear el tipo de variable que acepte esa función
+let noHaceNadaTampoco: ( n: number, t: string, b: boolean, a: string[] ) => void;
+
+// Asignación correcta
+noHaceNadaTampoco = noHaceNada;
+```
+
+# 5. Objetos y tipos personalizados en TypeScript
+    Objetos básicos
+    Crear objetos con tipos específicos
+    Crear métodos dentro de objetos
+    Tipos personalizados
+    Crear variables que soporten varios tipos a la vez.
+    Comprobar el tipo de un objeto.
