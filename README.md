@@ -685,10 +685,111 @@ Además en Chrome > Source gracias a los archivos *.js.map podrás además ver l
 
 adicionalmente en todos nuestros archivos .js se podrá ver un comentario con la ruta de este map, algo como
 //#SourceMappingURL=myfile.js.map
+![alt text](src/2026_02_03_11-53-37.png)
 
 Tambien en Chrome > Console podrás usar breakpoint en tu codigo .ts (algunos elementos no se puede como los tipos)
 
 ![alt text](src/2026_02_03_11-36-42.png)
+
+Si quieres remover los comentarios en Producción:
+tsconfig.json > "removeComments: true"
+
+
+# 6. outFile (unificar todos tus archivos en uno solo main.js)
+ventajas:
+- de este modo no se generan tantos archivos *.js
+- no se ensucia nuestro directorio y queda todo unificado en main.js
+- 1 lectura, mas velocidad.
+- gracias a la configuración anterior en nuestro console, seguimos viendo los archivos .ts sin unificar para hacer comodamente debug
+
+![alt text](src/2026_02_03_12-19-45.png)
+
+# 6.53 Desestructuracion de Objetos en ES6
+debemos de trabajar con ES6
+
+```typescript
+(()=> {
+
+    // 1. DEFINICIÓN DEL TIPO (El contrato)
+    // -------------------------------------------------
+    type Avengers = {
+        nick: string;
+        ironman: string;
+        vision: string;
+        activo: boolean;
+        poder: number;
+    }
+
+    // 2. CREACIÓN DEL OBJETO
+    // -------------------------------------------------
+    const avengers: Avengers = {
+        nick: 'Samuel L. Jackson',
+        ironman: 'Robert Downey Jr.',
+        vision: 'Paul Bettany',
+        activo: true,
+        poder: 1500.123123
+    }
+
+
+    // 3. DESESTRUCTURACIÓN DE ARGUMENTOS + REST
+    // -------------------------------------------------
+    // Aquí ocurren dos cosas mágicas a la vez:
+    // a) { ironman }: Extraemos SOLO la propiedad 'ironman' para usarla como variable.
+    // b) ...resto   : Agrupamos TODAS las demás propiedades que no sacamos en un nuevo objeto.
+    
+    const printAvenger = ({ ironman, ...resto }: Avengers ) => {
+    //                      ^^^^^^^    ^^^^^^^
+    //                      Variable   Nuevo Objeto con (nick, vision, activo, poder)
+
+        console.log( ironman, resto );
+// 👇 ESTO ES LO QUE SALE EN PANTALLA:
+// Robert Downey Jr. 
+// { nick: 'Samuel L. Jackson', vision: 'Paul Bettany', activo: true, poder: 1500.123123 }
+    }
+
+     printAvenger( avengers );
+
+
+    // 4. TUPLES Y DESESTRUCTURACIÓN DE ARRAYS
+    // -------------------------------------------------
+    // Esto no es un array normal, es una 'Tuple' (sabe qué tipo va en cada posición exacta)
+    const avengersArr: [string, boolean, number] = ['Cap. América', true, 150.15 ];
+    //                   ⬆️       ⬆️       ⬆️
+    //                  Pos 0    Pos 1    Pos 2
+
+    
+// OJO AQUÍ 👀: En los Arreglos, los nombres NO importan, importa el ORDEN.
+// Posición 0 ('Cap. América') -> Se llamará 'capitan'
+// Posición 1 (true)           -> Se llamará 'ironman' (¡Cuidado, variable nueva!)
+// Posición 2 (150.15)         -> Se llamará 'seriaUnNumero'
+    
+    const [ capitan, ironman, seriaUnNumero ] = avengersArr;
+    
+    console.log({ ironman, capitan })
+// 👇 ESTO ES LO QUE SALE EN PANTALLA:
+// { 
+//   ironman: true,          <-- Fíjate que aquí ironman es el booleano del array
+//   capitan: 'Cap. América' 
+// }
+})()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 
@@ -953,7 +1054,7 @@ Este archivo contiene las implementaciones refactorizadas y pruebas que demuestr
 
 ### 5.2 
 
-```
+```typescript
 (() => {
 
     // No aplicando el principio de responsabilidad única
@@ -1061,7 +1162,7 @@ Este archivo contiene las implementaciones refactorizadas y pruebas que demuestr
 
 ### 5.3 Aplicando el principio de responsabilidad única. Priorizar la composición frente a la herencia!
 
-```
+```typescript
 (() => {
 
     type Gender = 'M'|'F';
