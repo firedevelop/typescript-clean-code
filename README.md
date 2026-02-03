@@ -1,5 +1,7 @@
-# Icons
+# Resources
 👉👈👇👆✅❌🚧⚠️🚩🔺🔻⬅️⬆️➡️⬇️▀▀▀▄▄▄▄ ┏▼┃┣┗ ┻┗━━━━▶
+
+https://github.com/Klerith/ts-bases/tree/fin-seccion-5
 
 # 0. TypeScript - tipos basicos
 ## Commands
@@ -663,6 +665,30 @@ let mystique: Charles | Apocalipsis;
 mystique = charles;
 mystique = apocalipsis;
 ```
+
+# 6. Depuración
+un problema que encontramos es que al depurar en el console de chrome nos indica al linea del archivo .js en lugar de nuestro archivo .ts y esto es un inconveniente, para solucionarlo:
+
+1º open tsconfig.json
+remove comments from:
+`"SourceMap": true,`
+on terminal again run `tsc -w`
+
+y ahora en tu directorio de archivos veras que aparecen unos archivos llamados:
+*.js.map
+
+ahora si vuelves en Console de chrome ya podras ver la depuración de errores con el archivo y lineas correctas de tus archivos .ts en lugar de .js
+
+![alt text](src/2026_02_03_11-38-26.png)
+
+Además en Chrome > Source gracias a los archivos *.js.map podrás además ver los archivos mapeados de tu codigo .ts
+
+adicionalmente en todos nuestros archivos .js se podrá ver un comentario con la ruta de este map, algo como
+//#SourceMappingURL=myfile.js.map
+
+Tambien en Chrome > Console podrás usar breakpoint en tu codigo .ts (algunos elementos no se puede como los tipos)
+
+![alt text](src/2026_02_03_11-36-42.png)
 
 ---
 
