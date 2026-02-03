@@ -518,12 +518,42 @@ noHaceNadaTampoco = noHaceNada;
     }
 
     // 3. EJECUCIÓN
-    // Llamamos al método. Nota el uso del ?. (optional chaining) que explico abajo
-    console.log( flash.getName?.() ); 
+    // Bien (Si getName existe, ejecútalo. Si no, devuelve undefined y no rompas nada. Si no pusieramos ? y getName no exite, se rompe)
+    // Mal (Peligroso si getName no existe)
+    console.log( flash.getName() ); 
+
+    // Bien (Si getName existe, ejecútalo. Si no, devuelve undefined y no rompas nada)
+    console.log( flash.getName?.() );
 
 })()
 ```
 
+## 5.30. Custom Type (tipos personalizados)
+
+```typescript
+(()=>{
+    type Hero = {
+        name: string;
+        age?: number;
+        powers: number[];
+        getName?: ()=> string;
+    }
+    let flash: Hero = {
+        name: 'John',
+        age: 58,
+        powers: [1,2]
+    }
+    let superman: Hero{
+        name: 'mery',
+        age: 50,
+        power: [1],
+        getName():{ return this.name }
+    }
+})()
+```
+
+
+---
 
 # Clean Code y deuda técnica
 Principio de Responsabilidad única:
