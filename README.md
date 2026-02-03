@@ -1,5 +1,5 @@
 # Icons
-👉👈👇👆✅❌🚧⬅️⬆️➡️⬇️
+👉👈👇👆✅❌🚧⚠️🚩🔺🔻⬅️⬆️➡️⬇️▀▀▀▄▄▄▄ ┏▼┃┣┗ ┻┗━━━━▶
 
 # 0. TypeScript - tipos basicos
 ## Commands
@@ -532,12 +532,14 @@ noHaceNadaTampoco = noHaceNada;
 
 ```typescript
 (()=>{
+   //👇
     type Hero = {
         name: string;
         age?: number;
         powers: number[];
         getName?: ()=> string;
     }
+
     let flash: Hero = {
         name: 'John',
         age: 58,
@@ -548,10 +550,119 @@ noHaceNadaTampoco = noHaceNada;
         age: 50,
         power: [1],
         getName():{ return this.name }
+        //👆
+    }
+})()
+```
+## 5.30. Custom Multi Type (múltiples tipos personalizados)
+
+```typescript
+(()=>{
+       //👇
+    type Hero={
+        name:string;
+        age?:number;
+        powers: number[];
+        getName?:()=>string;
+    }
+//                          👇       👇      👇
+    let myCustomVariable: (string | number | Hero)='John';
+    console.log(typeof myCustomVariable);   //string
+
+    myCustomVariable = 20;
+    console.log(typeof myCustomVariable);  //number 
+
+    myCustomVariable = {
+        name: 'j',
+        age:20,
+        powers: [1,2],
     }
 })()
 ```
 
+example 1:
+```typescript
+
+// Objetos
+type Cars ={
+  carroceria: string;
+  modelo: string;
+  antibalas: boolean;
+  pasajeros: number;
+  disparar?:()=> void;
+}
+
+const batimovil:Cars = {
+  carroceria: "Negra",
+  modelo: "6x6",
+  antibalas: true,
+  pasajeros:4
+};
+
+const bumblebee:Cars = {
+  carroceria: "Amarillo con negro",
+  modelo: "4x2",
+  antibalas: true,
+  pasajeros:4,
+  disparar(){ // El metodo disparar es opcional
+    console.log("Disparando");
+  }
+};
+
+
+```
+
+example 2:
+```typescript
+// Villanos debe de ser un arreglo de objetos personalizados
+type Villano={
+  nombre:string; 
+  edad?:(number | undefined); 
+  mutante:boolean}
+
+const villanos: Villano[] = [{
+  nombre:"Lex Luthor",
+  edad: 54,
+  mutante:false
+},{
+  nombre: "Erik Magnus Lehnsherr",
+  edad: 49,
+  mutante: true
+},{
+  nombre: "James Logan",
+  edad: undefined,
+  mutante: true
+}];
+```
+
+```typescript
+// Multiples tipos
+// cree dos tipos, uno para charles y otro para apocalipsis
+type Charles={
+  poder: string;
+  estatura: number;
+}
+const charles:Charles = {
+  poder:"psiquico",
+  estatura: 1.78
+};
+
+type Apocalipsis={
+  lider:boolean;
+  miembros:string[];
+}
+
+const apocalipsis:Apocalipsis = {
+  lider:true,
+  miembros: ["Magneto","Tormenta","Psylocke","Angel"]
+}
+
+// Mystique, debe poder ser cualquiera de esos dos mutantes (charles o apocalipsis)
+let mystique: Charles | Apocalipsis;
+
+mystique = charles;
+mystique = apocalipsis;
+```
 
 ---
 
