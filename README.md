@@ -932,568 +932,281 @@ ventajas:
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-
-# Clean Code y deuda técnica
-Principio de Responsabilidad única:
-cada tarea hace una cosa y la hace bien.
-
-Transpilar: traducir el codigo de ts a js.
-
-Compilar: pasar código a binario y que la maquina lo ejecute.
-
-
-## 4. Refactorización de condicionales (04-homework.ts)
-
-### 4.1. Triple condicional dentro del if
-
-**EJERCICIO:** Triple condicional dentro del `if`.  
-**SOLUCIÓN:** Usar una estructura de datos (Set o Array) para almacenar las frutas rojas y verificar pertenencia.
-
-**Código original:**
-
-```javascript
-// Resolver sin la triple condicional dentro del if
-// includes? arrays?
-function isRedFruit( fruit: string ): boolean {
-
-    if ( fruit === 'manzana' || fruit === 'cereza' || fruit === 'ciruela' ) {
-        return true;
-    } else {
-        return false;
-    }
-}
-```
-
-**Código refactorizado:**
-
-```javascript
-const RED_FRUITS = new Set(['manzana', 'cereza', 'ciruela']);
-
-function isRedFruit(fruit: string): boolean {
-    return RED_FRUITS.has(fruit);
-}
-```
-
-**Ventajas:**
-
-- Elimina la lógica repetitiva.
-- Centraliza la lista de frutas rojas, facilitando mantenimiento.
-- Mejora la legibilidad.
-
-### 4.2. Múltiples `if-else` para mapear colores
-
-**EJERCICIO:** Múltiples `if-else` para mapear colores.  
-**SOLUCIÓN:** Utilizar un objeto literal como mapa de colores a frutas.
-
-**Código original:**
-
-```javascript
-// Simplificar esta función
-// switch? Object literal? validar posibles colores
-function getFruitsByColor( color: string ): string[] {
-
-    if ( color === 'red' ) {
-        return ['manzana','fresa'];
-    } else if ( color === 'yellow') {
-        return ['piña','banana'];
-    } else if ( color === 'purple') {
-        return ['moras','uvas']
-    } else {
-        throw Error('the color must be: red, yellow, purple');
-    }
-}
-```
-
-**Código refactorizado (objeto literal):**
-
-```javascript
-const FRUITS_BY_COLOR: Record<string, string[]> = {
-    red: ['manzana', 'fresa'],
-    yellow: ['piña', 'banana'],
-    purple: ['moras', 'uvas']
-};
-
-function getFruitsByColor(color: string): string[] {
-    if (!Object.keys(FRUITS_BY_COLOR).includes(color)) {
-        throw Error('the color must be: red, yellow, purple');
-    }
-    return FRUITS_BY_COLOR[color];
-}
-```
-
-**Alternativa con `switch`** (menos recomendada):
-
-```javascript
-function getFruitsByColor(color: string): string[] {
-    switch (color) {
-        case 'red': return ['manzana', 'fresa'];
-        case 'yellow': return ['piña', 'banana'];
-        case 'purple': return ['moras', 'uvas'];
-        default: throw Error('the color must be: red, yellow, purple');
-    }
-}
-```
-
-**Ventajas:**
-
-- Elimina anidación.
-- Datos separados de la lógica.
-- Fácil añadir nuevos colores.
-
-### 4.3. Nested `if` statements (arrow‑head anti‑pattern)
-
-**EJERCICIO:** Nested `if` statements (arrow‑head anti‑pattern).  
-**SOLUCIÓN:** Usar early returns para aplanar la lógica.
-
-**Código original:**
-
-```javascript
-// Simplificar esta función
-let isFirstStepWorking = true;
-let isSecondStepWorking = true;
-let isThirdStepWorking = true;
-let isFourthStepWorking = true;
-
-function workingSteps() {
-  if (isFirstStepWorking === true) {
-    if (isSecondStepWorking === true) {
-      if (isThirdStepWorking === true) {
-        if (isFourthStepWorking === true) {
-          return "Working properly!";
-        } else {
-          return "Fourth step broken.";
-        }
-      } else {
-        return "Third step broken.";
-      }
-    } else {
-      return "Second step broken.";
-    }
-  } else {
-    return "First step broken.";
-  }
-}
-```
-
-**Código refactorizado:**
-
-```javascript
-let isFirstStepWorking = true;
-let isSecondStepWorking = true;
-let isThirdStepWorking = true;
-let isFourthStepWorking = true;
-
-function workingSteps(): string {
-    if (!isFirstStepWorking) return 'First step broken.';
-    if (!isSecondStepWorking) return 'Second step broken.';
-    if (!isThirdStepWorking) return 'Third step broken.';
-    if (!isFourthStepWorking) return 'Fourth step broken.';
-    return 'Working properly!';
-}
-```
-
-
-**Ventajas:**
-
-- Reduce complejidad ciclomática.
-- Cada condición se evalúa de forma independiente.
-- Más fácil de depurar y modificar.
-
----
-
-## Verificación de las soluciones
-
-Puedes ejecutar el archivo `test.js` adjunto para verificar el comportamiento de los ejercicios de condicionales:
-
-```bash
-node test.js
-```
-
-Este archivo contiene las implementaciones refactorizadas y pruebas que demuestran que las funciones producen los mismos resultados que las originales.
-
-## Principios de Clean Code aplicados
-
-- **DRY (Don't Repeat Yourself):** Evitar la repetición de lógica (como la lista de frutas rojas o validaciones duplicadas).
-- **Single Responsibility:** Cada función tiene una única responsabilidad.
-- **Readability:** Código más legible y expresivo.
-- **Maintainability:** Centralizar datos en estructuras separadas facilita cambios futuros.
-- **Fail Fast:** Validación temprana de entradas incorrectas (ej. color no válido).
-- **Meaningful Names:** Uso de nombres que revelan intención.
-- **Explicit Types:** Tipado explícito para mayor seguridad y claridad.
-
-
-# 5. Clases y el principio de la Responsabilidad única
-### 5.1 Objetos como propiedades
-```
-(() => {
-
-    // No aplicando el principio de responsabilidad única
-
-    type Gender = 'M'|'F';
-
-    class Person {
-        constructor(
-            public name: string, 
-            public gender: Gender, 
-            public birthdate: Date
-        ){}
-    }
-
-
-    class User extends Person {
-        
-        public lastAccess: Date;
-
-        constructor(
-            public email: string,
-            public role: string,
-            name: string,
-            gender: Gender,
-            birthdate: Date,
-        ) {
-            super( name, gender, birthdate );
-            this.lastAccess = new Date();
-        }
-
-        checkCredentials() {
-            return true;
-        }
-    }
-
-
-    class UserSettings extends User {
-        constructor(
-            public workingDirectory: string,
-            public lastOpenFolder  : string,
-            email                  : string,
-            role                   : string,
-            name                   : string,
-            gender                 : Gender,
-            birthdate              : Date
-        ) {
-            super(email, role, name, gender, birthdate );
-        }
-    }
-
-
-    const userSettings = new UserSettings(
-        '/usr/home',
-        '/home',
-        'fernando@google.com',
-        'Admin',
-        'Fernando',
-        'M',
-        new Date('1985-10-21')
-    );
-
-    console.log({ userSettings });
-
-
-})();
-```
-
-### 5.2 
-
+# 7.57. Clases ES6
 ```typescript
-(() => {
+(()=> {
 
-    // No aplicando el principio de responsabilidad única
-
-    type Gender = 'M'|'F';
-
-    interface PersonProps {
-        birthdate : Date;
-        gender    : Gender;
-        name      : string;
-    }
-
-    class Person {
-        public birthdate: Date;
-        public gender   : Gender;
-        public name     : string;
-
-        constructor({ name, gender, birthdate }: PersonProps ){
-            this.name      = name;
-            this.gender    = gender;
-            this.birthdate = birthdate;
-        }
-    }
-
-
-    interface UserProps {
-        birthdate : Date;
-        email     : string;
-        gender    : Gender;
-        name      : string;
-        role      : string;
-    }
-
-    class User extends Person {
+    class Avenger {
         
-        public email: string;
-        public role : string;
-        public lastAccess: Date;
-
-        constructor({
-            birthdate,
-            email,
-            gender,
-            name,
-            role,
-        }: UserProps ) {
-            super({ name, gender, birthdate });
-            this.lastAccess = new Date();
-            this.email = email;
-            this.role  = role;
+        constructor( name = 'No name', power = 0 ) {
+            this.name = name;
+            this.power = power;
         }
 
-        checkCredentials() {
-            return true;
+    }
+
+    class FlyingAvenger extends Avenger {
+
+        constructor( name, power ) {
+            super( name, power );
+            this.flying = true;
         }
     }
 
+    const hulk = new Avenger('Hulk', 9001 );
+    const falcon = new FlyingAvenger('Falcon', 50 );
 
-    interface UserSettingsProps {
-        birthdate        : Date;
-        email            : string;
-        gender           : Gender;
-        lastOpenFolder   : string;
-        name             : string;
-        role             : string;
-        workingDirectory : string;
-    }
+    console.log( hulk  );
+    console.log( falcon );
 
-    class UserSettings extends User {
-
-        public workingDirectory: string;
-        public lastOpenFolder  : string;
-
-        constructor({
-            workingDirectory,
-            lastOpenFolder,
-            email,
-            role,
-            name,
-            gender,
-            birthdate,
-        }: UserSettingsProps ) {
-            super({ email, role, name, gender, birthdate });
-            this.workingDirectory = workingDirectory;
-            this.lastOpenFolder   = lastOpenFolder;
-        }
-    }
-
-
-    const userSettings = new UserSettings({
-        birthdate: new Date('1985-10-21'),
-        email: 'fernando@google.com',
-        gender: 'M',
-        lastOpenFolder: '/home',
-        name: 'Fernando',
-        role: 'Admin',
-        workingDirectory: '/usr/home',
-    });
-
-    console.log({ userSettings });
-
-
-})();
+})()
 ```
 
-### 5.3 Aplicando el principio de responsabilidad única. Priorizar la composición frente a la herencia!
+# 7.79. Array Destructuring
 
-```typescript
-(() => {
-
-    type Gender = 'M'|'F';
-
-    interface PersonProps {
-        birthdate : Date;
-        gender    : Gender;
-        name      : string;
-    }
-
-    class Person {
-        public birthdate: Date;
-        public gender   : Gender;
-        public name     : string;
-
-        constructor({ name, gender, birthdate }: PersonProps ){
-            this.name      = name;
-            this.gender    = gender;
-            this.birthdate = birthdate;
-        }
-    }
-
-
-    interface UserProps {
-        email     : string;
-        role      : string;
-    }
-
-    class User {
-        
-        public email      : string;
-        public lastAccess : Date;
-        public role       : string;
-
-        constructor({
-            email,
-            role,
-        }: UserProps ) {
-            this.lastAccess = new Date();
-            this.email = email;
-            this.role  = role;
-        }
-
-        checkCredentials() {
-            return true;
-        }
-    }
-
-
-    interface SettingsProps {
-        lastOpenFolder   : string;
-        workingDirectory : string;
-    }
-
-    class Settings {
-
-        public workingDirectory: string;
-        public lastOpenFolder  : string;
-
-        constructor({
-            lastOpenFolder,
-            workingDirectory,
-        }: SettingsProps ) {
-            this.lastOpenFolder   = lastOpenFolder;
-            this.workingDirectory = workingDirectory;
-        }
-    }
-
-
-    interface UserSettingsProps {
-        birthdate        : Date;
-        email            : string;
-        gender           : Gender;
-        lastOpenFolder   : string;
-        name             : string;
-        role             : string;
-        workingDirectory : string;
-    }
-
-    class UserSettings {
-
-        public person  : Person;
-        public user    : User;
-        public settings: Settings;
-
-        constructor({
-            name, gender, birthdate,
-            email, role,
-            lastOpenFolder, workingDirectory,
-        }: UserSettingsProps ){
-
-            this.person = new Person({ name, gender, birthdate });
-            this.user = new User({ email, role });
-            this.settings = new Settings({ lastOpenFolder, workingDirectory })
-        }
-    }
-
-
-
-    const userSettings = new UserSettings({
-        birthdate: new Date('1985-10-21'),
-        email: 'fernando@google.com',
-        gender: 'M',
-        lastOpenFolder: '/home',
-        name: 'Fernando',
-        role: 'Admin',
-        workingDirectory: '/usr/home',
-    });
-
-    console.log({ userSettings });
-
-    
-})();
-```
-
-# 6. Clases. Estructura recomendada
+Método clásico:
 ```ts
-class HtmlElement {
-
-    // Comenzar con lista de propiedades.
-    
-    // 1. Propiedades estáticas.
-    public static domReady: boolean = false;
-
-    // 2. Propiedades públicas de último (aunque en el ejemplo se muestran privadas).
-    private _id: string;
-    private type: string;
-    private updatedAt: number;
-
-    // Métodos
-
-    // 1. Empezando por los constructores estáticos.
-    static createInput( id: string ) {
-        return new HtmlElement(id, 'input');
-    }
-
-    // 2. Luego el constructor.
-    constructor( id: string, type: string ) {
-        this._id = id;
-        this.type = type;
-        this.updatedAt = Date.now();
-    }
-
-    // 3. Seguidamente métodos estáticos.
-    // 4. Métodos privados después.
-    
-    // 5. Resto de métodos de instancia ordenados de mayor a menor importancia.
-    setType( type: string ) {
-        this.type = type;
-        this.updatedAt = Date.now();
-    }
-
-    // 6. Getters y Setters al final.
-    get id(): string {
-        return this._id;
-    }
-}
+let frutas = ["Pera", "Manzana"];
+let pera = frutas[0];    // Tengo que saber que es el 0
+let manzana = frutas[1]; // Tengo que saber que es el 1
 ```
 
-# 7. STUPID - Code Smells
-
-# 8. Principios SOLID
-Cada principio básicamente cuenta de 3 partes, una exposición, un ejercicio y cómo detectar violaciones al principio, algunos son bastante obvios y otros tienen un poco más de complejidad, pero no dejen que los nombres los asusten, son fáciles de comprender con la práctica.
-
-
-Los 5 principios S.O.L.I.D. de diseño de software son:
+Método destructuring:
+```ts
+let frutas: string[] = ["Pera", "Manzana"];
+//                        ⬆️       ⬆️
+//                     Posición 0  Posición 1
 
 
-    S – Single Responsibility Principle (SRP)
+// ASIGNACIÓN POR POSICIÓN
+// -----------------------
+let [ pera, manzana ] = frutas;
+//     ⬆️      ⬆️
+//     |       |
+//     |       └── Recibe lo que haya en la Posición 1 ("Manzana")
+//     |
+//     └────────── Recibe lo que haya en la Posición 0 ("Pera")
 
-    O – Open/Closed Principle (OCP)
 
-    L – Liskov Substitution Principle (LSP)
+console.log( pera );    // Salida: "Pera"
+console.log( manzana ); // Salida: "Manzana"
 
-    I – Interface Segregation Principle (ISP)
+```
 
-    D – Dependency Inversion Principle (DIP)
+# 8.58 Clases en TypeScript
+    - Crear clases en TypeScript
+    - Constructores
+    - Accesibilidad de las propiedades:
+        - Públicas
+        - Privadas
+        - Protegidas
+    - Métodos de las clases que pueden ser:
+        - Públicos
+        - Privados
+        - Protegidos
+    - Herencia
+    - Llamar funciones del padre, desde los hijos
+    - Getters 
+    - Setters
+    - Métodos y propiedades estáticas
+    - Clases abstractas
+    - Constructores privados.
 
-Y en esta sección hablaremos sobre cada uno de ellos.
+---
 
+no tiene acceso a métodos private, pero si public.
+![alt text](src/2026_02_04_11-10-04.png)
+
+
+# 8.60 CLASES. El Fundamento: Encapsulamiento, Statics y Getters/Setters 🏗️
+Aquí aprendemos a proteger datos y usar propiedades globales.
+```ts
+(() => {
+    class Department {
+
+        // 🗿 STATIC
+        static companyName: string = 'Tech Solutions Inc.';
+
+        // 🔒 PRIVATE
+        private _budget: number;
+
+        constructor(
+            public name: string,
+            private id: string,
+        ) {
+            this._budget = 0;
+        }
+
+        // ⚙️ GETTER
+        get budgetInfo(): string {
+            return `El presupuesto es: ${this._budget} €`;
+        }
+
+        // ⚙️ SETTER
+        set setBudget( amount: number ) {
+            if ( amount < 0 ) {
+                throw new Error('El presupuesto no puede ser negativo');
+            }
+            this._budget = amount;
+        }
+
+        // 🗿 MÉTODO ESTÁTICO
+        static getCompany() {
+            return Department.companyName;
+        }
+    }
+
+    // --- PRUEBAS Y OUTPUTS ---
+    const it = new Department('Informática', 'IT-01');
+
+    it.setBudget = 5000;          
+    
+    console.log( it.budgetInfo ); 
+    // 📢 OUTPUT: El presupuesto es: 5000 €
+    
+    
+    console.log( Department.getCompany() ); 
+    // 📢 OUTPUT: Tech Solutions Inc.
+
+})();
+
+        // ⚙️ GETTER: Parece una propiedad, pero es una función.
+        // Sirve para leer datos privados o modificados.
+        get budgetInfo(): string {
+            return `El presupuesto es: ${this._budget} €`;
+        }
+
+        // ⚙️ SETTER: Sirve para validar datos antes de guardarlos.
+        set setBudget( amount: number ) {
+            if ( amount < 0 ) {
+                throw new Error('El presupuesto no puede ser negativo');
+            }
+            this._budget = amount;
+        }
+
+        // 🔓 MÉTODO PÚBLICO
+        public printInfo() {
+            console.log(`Dpto: ${this.name} (${Department.companyName})`);
+        }
+
+        // 🗿 MÉTODO ESTÁTICO: Se llama sin crear objetos
+        static getCompany() {
+            return Department.companyName;
+        }
+    }
+
+    // --- PRUEBAS ---
+    const it = new Department('Informática', 'IT-01', 'Planta 2');
+
+    // 1. Uso de Setters y Getters
+    it.setBudget = 5000;          // ✅ Usamos el Setter
+    console.log( it.budgetInfo ); // ✅ Usamos el Getter
+    
+    // 2. Uso de Static
+    console.log( Department.getCompany() ); // ✅ Llamada directa a la Clase
+
+})();
+```
+
+# 8.61 CLASES. La Jerarquía: Herencia, Abstract y Super 👨‍👦
+Aquí aprendemos cómo unas clases heredan de otras.
+
+Usaremos Clases Abstractas. Imagina que tenemos Person (Genérico) y Employee (Específico). Nota: Una clase abstracta es un molde base que NO se puede instanciar directamente (no puedes hacer new Person()), solo sirve para heredar.
+```ts
+(() => {
+
+    // 👻 ABSTRACT
+    abstract class Person {
+        
+        constructor(
+            public name: string,
+            public country: string
+        ) {}
+
+        abstract showRole(): void;
+
+        welcome() {
+            return `Bienvenido, ${this.name} de ${this.country}`;
+        }
+    }
+
+
+    // 👶 HERENCIA
+    class Employee extends Person {
+
+        constructor(
+            name: string,
+            country: string,
+            public jobTitle: string 
+        ) {
+            // 📞 SUPER (Constructor)
+            super( name, country );
+        }
+
+        showRole() {
+            console.log(`Soy ${this.name} y trabajo como ${this.jobTitle}`);
+        }
+
+        welcome() {
+            // 📞 SUPER (Método)
+            return `${ super.welcome() } - [Empleado Validado]`;
+        }
+    }
+
+    // --- PRUEBAS Y OUTPUTS ---
+    
+    const manuel = new Employee('Manuel', 'España', 'Full Stack Dev');
+    
+    manuel.showRole();       
+    // 📢 OUTPUT: Soy Manuel y trabajo como Full Stack Dev
+
+
+    console.log( manuel.welcome() ); 
+    // 📢 OUTPUT: Bienvenido, Manuel de España - [Empleado Validado]
+
+})();
+```
+
+# 8.62. CLASES. Nivel Experto: Constructor Privado (Singleton) 💍
+Aquí cubrimos el "Constructor Privado" que viste al final (como el ejemplo de Apocalipsis).
+
+Esto se llama patrón Singleton. Sirve para asegurar que SOLO EXISTA UNA INSTANCIA de una clase en toda la app (muy útil para conexiones a Base de Datos o Configuraciones).
+```typescript
+(() => {
+
+    class DatabaseConnection {
+
+        static instance: DatabaseConnection;
+
+        // 🔒 CONSTRUCTOR PRIVADO
+        private constructor( public url: string ) {
+            console.log('Conectando a la BD...');
+        }
+
+        static getInstance(): DatabaseConnection {
+            if ( !DatabaseConnection.instance ) {
+                DatabaseConnection.instance = new DatabaseConnection('https://mi-db.com');
+            }
+            return DatabaseConnection.instance;
+        }
+    }
+
+    // --- PRUEBAS Y OUTPUTS ---
+    
+    console.log('--- Intentando conectar 1 ---');
+    const db1 = DatabaseConnection.getInstance(); 
+    // 📢 OUTPUT: Conectando a la BD... 
+    // (Sale este mensaje porque es la PRIMERA vez y entra al constructor)
+
+
+    console.log('--- Intentando conectar 2 ---');
+    const db2 = DatabaseConnection.getInstance(); 
+    // (Aquí NO sale ningún output, porque ya estaba creada y la reutiliza)
+
+
+    console.log( db1 === db2 ); 
+    // 📢 OUTPUT: true
+    // (Confirma que ambas variables apuntan al MISMO objeto en memoria)
+
+})();
+```
