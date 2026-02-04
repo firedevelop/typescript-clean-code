@@ -705,7 +705,7 @@ ventajas:
 ![alt text](src/2026_02_03_12-19-45.png)
 
 # 6.53 Desestructuracion de Objetos en ES6
-debemos de trabajar con ES6
+
 
 ```typescript
 (()=> {
@@ -749,9 +749,11 @@ debemos de trabajar con ES6
 
      printAvenger( avengers );
 
+```
 
-    // 4. TUPLES Y DESESTRUCTURACIÓN DE ARRAYS
-    // -------------------------------------------------
+# 6.54 TUPLES Y DESESTRUCTURACIÓN DE ARRAYS
+```typescript
+
     // Esto no es un array normal, es una 'Tuple' (sabe qué tipo va en cada posición exacta)
     const avengersArr: [string, boolean, number] = ['Cap. América', true, 150.15 ];
     //                   ⬆️       ⬆️       ⬆️
@@ -775,7 +777,159 @@ debemos de trabajar con ES6
 ```
 
 
+# 6.55 for clasico VS desestructuración
+```typescript
+(() => {
 
+    // -------------------------------------------------
+    // 1. PREPARACIÓN DE DATOS
+    // -------------------------------------------------
+    type Person = {
+        name: string;
+        country: string;
+        job: string;
+    }
+
+    const people: Person[] = [
+        { name: 'Tony Stark', country: 'USA', job: 'Ingeniero' },
+        { name: 'Wanda Maximoff', country: 'Sokovia', job: 'Maga' },
+        { name: 'Chun-Li', country: 'China', job: 'Luchadora' }
+    ];
+
+
+    // =======================================================
+    // 2️⃣ FORMA CLÁSICA: "El objeto entero"
+    // =======================================================
+    // En cada vuelta, la variable 'person' contiene TODO el objeto.
+    // Es útil si necesitas pasar el objeto completo a otra función.
+    
+    console.log('--- FORMA 1: CLÁSICA (person.algo) ---');
+
+    for ( const person of people ) {
+
+        console.log( person.name, person.country );
+        //             ⬆️             ⬆️
+        //      Tienes que usar el punto (.) para acceder
+
+        // 📢 OUTPUT REAL:
+        // Tony Stark USA
+        // Wanda Maximoff Sokovia
+        // Chun-Li China
+    }
+
+
+    // =======================================================
+    // 3️⃣ FORMA ELEGANTE: "Desestructuración"
+    // =======================================================
+    // Aquí "abrimos la caja" en la misma definición del bucle.
+    // Es más limpio si solo quieres leer datos.
+
+    console.log('--- FORMA 2: DESESTRUCTURADA ({ name }) ---');
+
+    for ( const { name, country } of people ) {
+
+        console.log( name, country );
+        //            ⬆️     ⬆️
+        //      Usas las variables directamente (Ahorras escribir)
+
+        // 📢 OUTPUT REAL:
+        // Tony Stark USA
+        // Wanda Maximoff Sokovia
+        // Chun-Li China
+
+
+        // ❌ OJO: Aquí NO puedes usar 'person.job' ni 'job'
+        // 1. 'person' no existe (porque desestructuramos).
+        // 2. 'job' no existe (porque no lo pedimos arriba en el const).
+    }
+
+})()
+```
+
+
+# 6.55 for clasico VS desestructuración con instancias sueltas
+```typescript
+(() => {
+
+    // 1. DEFINICIÓN DEL TIPO 📝
+    // -------------------------------------------------
+    type Person = {
+        name: string;
+        country: string;
+        job: string;
+    }
+
+
+    // 2. CREACIÓN DE INSTANCIAS (Variables sueltas) 🏗️
+    // -------------------------------------------------
+    const tony: Person = {
+        name: 'Tony Stark',
+        country: 'USA',
+        job: 'Ingeniero'
+    }
+
+    const wanda: Person = {
+        name: 'Wanda Maximoff',
+        country: 'Sokovia',
+        job: 'Maga'
+    }
+
+    const natasha: Person = {
+        name: 'Natasha Romanoff',
+        country: 'Rusia',
+        job: 'Espía'
+    }
+
+
+    // 3. CREACIÓN DEL ARRAY TIPADO 📦
+    // -------------------------------------------------
+    // 👇 Aquí agrupamos las variables que creamos arriba
+    const people: Person[] = [ tony, wanda, natasha ];
+
+
+    // =======================================================
+    // 🅰️ FORMA CLÁSICA (Sin desestructurar)
+    // =======================================================
+    // Útil cuando necesitas el objeto 'person' completo para pasarlo a otro lado.
+    
+    console.log('--- FORMA 1: CLÁSICA ---');
+
+    for ( const person of people ) {
+
+        // ➡️ Tienes que repetir 'person.' todo el rato
+        console.log( person.name, person.country );
+
+        // 📢 OUTPUT:
+        // Tony Stark USA
+        // Wanda Maximoff Sokovia...
+    }
+
+
+    // =======================================================
+    // 🅱️ FORMA DESESTRUCTURADA (Elegante) ✨
+    // =======================================================
+    // Útil para leer datos rápidos y escribir menos código.
+    
+    console.log('--- FORMA 2: DESESTRUCTURADA ---');
+
+    // 👇 Aquí "rompes" el objeto y sacas solo lo que te interesa
+    for ( const { name, country } of people ) {
+
+        // ➡️ Usas las variables directamente
+        console.log( name, country );
+
+        // 📢 OUTPUT:
+        // Tony Stark USA
+        // Wanda Maximoff Sokovia... (Sale exactamente lo mismo)
+
+        
+        // ❌ OJO: Aquí NO puedes acceder a 'job' ni 'person'
+        // porque no los hemos pedido en el 'const { ... }'
+    }
+
+})()
+
+```
 
 
 
