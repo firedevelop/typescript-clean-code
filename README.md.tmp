@@ -1,91 +1,20 @@
-# Index
-
-- [Resources](#resources)
-  - [0. TypeScript - tipos basicos](#0-typescript-tipos-basicos)
-    - [Commands](#commands)
-    - [Conceptos](#conceptos)
-    - [3. ¿Qué son los tipos de datos](#que-son-los-tipos-de-datos)
-      - [Symbols](#symbols)
-      - [Objetos literales](#objetos-literales)
-    - [3.14. Inferir tipos y modo estricto](#314-inferir-tipos-y-modo-estricto)
-    - [3.18 tipo any (evitar usarlo)](#318-tipo-any-evitar-usarlo)
-    - [3.19 Arrays ](#319-arrays)
-      - [3.20 Tuples](#320-tuples)
-      - [3.21. Enum](#321-enum)
-      - [3.22 Void, null, undefined](#322-void-null-undefined)
-        - [1. `undefined` (No inicializado) 🤷‍♂️](#1-undefined-no-inicializado)
-        - [2. `null` (Intencionalmente vacío) 📭](#2-null-intencionalmente-vacio)
-        - [3. `void` (Vacío / Sin retorno) 🕳️](#3-void-vacio-sin-retorno)
-        - [Resumen para tu "Cheat Sheet" mental 🧠](#resumen-para-tu-cheat-sheet-mental)
-        - [¿Cuándo usar cuál?](#cuando-usar-cual)
-      - [3.23 Never](#323-never)
-      - [3.24 StrictNullChecks](#324-strictnullchecks)
-    - [4. Funciones y objetos](#4-funciones-y-objetos)
-      - [4.29 Funciones Parámetros](#429-funciones-parametros)
-      - [4.30 parametros por defecto y opcionales](#430-parametros-por-defecto-y-opcionales)
-        - [Puntos clave de este código:](#puntos-clave-de-este-codigo)
-      - [4.34 Tipo Function](#434-tipo-function)
-    - [5. Objetos y tipos personalizados en TypeScript](#5-objetos-y-tipos-personalizados-en-typescript)
-    - [5.38 Métodos dentro de objetos](#538-metodos-dentro-de-objetos)
-      - [5.30. Custom Type (tipos personalizados)](#530-custom-type-tipos-personalizados)
-      - [5.30. Custom Multi Type (múltiples tipos personalizados)](#530-custom-multi-type-multiples-tipos-personalizados)
-    - [6. Depuración](#6-depuracion)
-    - [6. outFile (unificar todos tus archivos en uno solo main.js)](#6-outfile-unificar-todos-tus-archivos-en-uno-solo-mainjs)
-    - [6.53 Desestructuracion de Objetos en ES6](#653-desestructuracion-de-objetos-en-es6)
-    - [6.54 TUPLES Y DESESTRUCTURACIÓN DE ARRAYS](#654-tuples-y-desestructuracion-de-arrays)
-    - [6.55 for clasico VS desestructuración](#655-for-clasico-vs-desestructuracion)
-    - [6.55 for clasico VS desestructuración con instancias sueltas](#655-for-clasico-vs-desestructuracion-con-instancias-sueltas)
-    - [7.57. Clases ES6](#757-clases-es6)
-    - [7.79. Array Destructuring](#779-array-destructuring)
-    - [8.58 Clases en TypeScript](#858-clases-en-typescript)
-    - [8.60 CLASES. El Fundamento: Encapsulamiento, Statics y Getters/Setters 🏗️](#860-clases-el-fundamento-encapsulamiento-statics-y-getterssetters)
-    - [8.61 CLASES. La Jerarquía: Herencia, Abstract y Super 👨‍👦](#861-clases-la-jerarquia-herencia-abstract-y-super)
-    - [8.62. CLASES. Nivel Experto: Constructor Privado (Singleton) 💍](#862-clases-nivel-experto-constructor-privado-singleton)
-    - [Clean Code y deuda técnica](#clean-code-y-deuda-tecnica)
-      - [4. Refactorización de condicionales (04-homework.ts)](#4-refactorizacion-de-condicionales-04-homeworkts)
-      - [4.2. Múltiples `if-else` para mapear colores](#42-multiples-if-else-para-mapear-colores)
-      - [4.3. Nested `if` statements (arrow‑head anti‑pattern)](#43-nested-if-statements-arrowhead-anti-pattern)
-    - [Verificación de las soluciones](#verificacion-de-las-soluciones)
-    - [Principios de Clean Code aplicados](#principios-de-clean-code-aplicados)
-    - [5. Clases y el principio de la Responsabilidad única](#5-clases-y-el-principio-de-la-responsabilidad-unica)
-      - [5.2](#52)
-      - [5.3 Aplicando el principio de responsabilidad única. Priorizar la composición frente a la herencia!](#53-aplicando-el-principio-de-responsabilidad-unica-priorizar-la-composicion-frente-a-la-herencia)
-    - [6. Clases. Estructura recomendada](#6-clases-estructura-recomendada)
-    - [7. STUPID - Code Smells](#7-stupid-code-smells)
-    - [8. Principios SOLID](#8-principios-solid)
-
-<a name="resources"></a>
 # Resources
-[🏠](#resources) | [➡️](#0-typescript-tipos-basicos)
-
 👉👈👇👆✅❌🚧⚠️🚩🔺🔻⬅️⬆️➡️⬇️▀▀▀▄▄▄▄ ┏▼┃┣┗ ┻┗━━━━▶
 
 https://github.com/Klerith/ts-bases/tree/fin-seccion-5
 
-<a name="0-typescript-tipos-basicos"></a>
 # 0. TypeScript - tipos basicos
-[🏠](#resources) | [⬅️](#resources) | [➡️](#que-son-los-tipos-de-datos)
-
-<a name="commands"></a>
 ## Commands
-[🏠](#resources) | [⬅️](#0-typescript-tipos-basicos) | [➡️](#conceptos)
-
-```typescript
+```ts
 tsc --init
 
 tsc -w  //watching (muestra los archivos traspilados para si quieres comparar ts con js)
 ```
-<a name="conceptos"></a>
 ## Conceptos
-[🏠](#resources) | [⬅️](#commands) | [➡️](#que-son-los-tipos-de-datos)
-
 en typescript los : significan el tipo de dato, ej de tipo numerico:
 const a : 10
 
-<a name="que-son-los-tipos-de-datos"></a>
 # 3. ¿Qué son los tipos de datos
-[🏠](#resources) | [⬅️](#conceptos) | [➡️](#symbols)
-
 * Primitivos
     * String
     * Number
@@ -107,17 +36,11 @@ Especiales:
     age = null
     hero = undefined
 
-<a name="symbols"></a>
 ### Symbols
-[🏠](#resources) | [⬅️](#que-son-los-tipos-de-datos) | [➡️](#objetos-literales)
-
 cuando se necesita dentro de un objeto garantizar que una propiedad sea unica. (dos symbols apuntan a un espacio de memoria diferente)
 
-<a name="objetos-literales"></a>
 ### Objetos literales
-[🏠](#resources) | [⬅️](#symbols) | [➡️](#314-inferir-tipos-y-modo-estricto)
-
-```typescript
+```ts
 person = {
     name: 'John',
     age: 35
@@ -126,17 +49,14 @@ person = {
 
 Función Anónima AutoInvocada:
 esta tecnica se usa para hacer funciones autoinvocadas y así tener codigo encapsulado para hacer pruebas:
-```typescript
+```ts
 (()=> {
 
 })
 ```
 
 
-<a name="314-inferir-tipos-y-modo-estricto"></a>
 ## 3.14. Inferir tipos y modo estricto
-[🏠](#resources) | [⬅️](#objetos-literales) | [➡️](#318-tipo-any-evitar-usarlo)
-
 b da error puede volver asignarse pero esta tipado a string unicamente.
 ```
 const a:number = 10;
@@ -149,7 +69,7 @@ b = true;
 ```
 
 funciones autoinvocadas:
-```typescript
+```ts
 (()=> {
     const a:number = 10;
     console.log(a)
@@ -157,7 +77,7 @@ funciones autoinvocadas:
 ```
 
 Ventaja de ts: obseva como esto da error en ts pues num1 es undefind, sin embargo si usamos js da output 'es mayor'
-```typescript
+```ts
  let num1;
  let num2: number = 10;
  
@@ -169,15 +89,15 @@ Ventaja de ts: obseva como esto da error en ts pues num1 es undefind, sin embarg
 ```
 
  tipos de String (se recomienda usar '')
- ```typescript
+ ```ts
 const a: string = 'john';
 const b: string = "mery";
 const c: string = `peter`;
- `
+ ```
 
 uso de ? 
 (si hay algo en posicion 10, en caso contrario no hace nada)
-```typescript
+```ts
 const a: string = 'john';
 console.log(a[10].toUpperCase()) 
 // ERROR 
@@ -187,12 +107,9 @@ console.log(a[10]?.toUpperCase() || 'missing');
 // missing 
 ```
 
-<a name="318-tipo-any-evitar-usarlo"></a>
 ## 3.18 tipo any (evitar usarlo)
-[🏠](#resources) | [⬅️](#314-inferir-tipos-y-modo-estricto) | [➡️](#319-arrays)
-
 Nunca lo usen pues para eso usamos ts en lugar de js para tener un tipado stricto.
-```typescript
+```ts
 (()=>{
     let a:any = 123;
     a = 'john';
@@ -203,7 +120,7 @@ Nunca lo usen pues para eso usamos ts en lugar de js para tener un tipado strict
 ```
 
 any puede ser cualquier tipo, véase como cambia de string a number
-```typescript
+```ts
 let a:any = 123;
 a = 'some text';
 console.log(a.chartAt(0)); // s
@@ -212,7 +129,7 @@ console.log(a)
 ```
 
 casting de tipo AS y de tipo <> (para hacer una excepción de tipo de en lugar de ser any lo trata como string o number y con esto se logra que al poner el punto salgan los métodos en visual studio, de otra manera no salen pues es 'any')
-```typescript
+```ts
 let a:any = 123
 a = 'some text';
 console.log(a as string).charAt(0) // s
@@ -221,26 +138,20 @@ console.log(<number>a).toFixed(2); // 1.56
 ```
 
 
-<a name="319-arrays"></a>
 # 3.19 Arrays 
-[🏠](#resources) | [⬅️](#318-tipo-any-evitar-usarlo) | [➡️](#320-tuples)
-
 [ ] significa arreglos, tambien pueden ser tuplas.
 
 array que admite múltiples tipos
-```typescript
+```ts
 const a: (string | number | boolean)[] = [1, 2, 3, '4',true];
 a.push(true)
 console.log(a) 
 // 1,2,3,4,true,true
 
-` 
+``` 
 
-<a name="320-tuples"></a>
 ## 3.20 Tuples
-[🏠](#resources) | [⬅️](#319-arrays) | [➡️](#321-enum)
-
-```typescript
+```ts
 const a: [string, number,boolean] = ['some text',100,true];
 hero[0]='text'     //ok
 hero[0]=50        //error
@@ -251,11 +162,8 @@ hero[2]=50    //error
 
 ```
 
-<a name="321-enum"></a>
 ## 3.21. Enum
-[🏠](#resources) | [⬅️](#320-tuples) | [➡️](#322-void-null-undefined)
-
-```typescript
+```ts
 (()=>{
     enum Level{
         min = 1,
@@ -274,7 +182,7 @@ hero[2]=50    //error
 })()
 ```
 example:
-```typescript
+```ts
     (()=>{
     enum level{
         min = 0,
@@ -287,9 +195,7 @@ example:
     })()
 ```
 
-<a name="322-void-null-undefined"></a>
 ## 3.22 Void, null, undefined
-[🏠](#resources) | [⬅️](#321-enum) | [➡️](#1-undefined-no-inicializado)
 
 ¿son lo mismo? **Rotundamente NO.** Son tres conceptos diferentes.
 
@@ -299,9 +205,7 @@ Aquí tienes la explicación definitiva con una analogía fácil de entender.
 
 ---
 
-<a name="1-undefined-no-inicializado"></a>
 ### 1. `undefined` (No inicializado) 🤷‍♂️
-[🏠](#resources) | [⬅️](#322-void-null-undefined) | [➡️](#2-null-intencionalmente-vacio)
 
 **"Existe, pero nadie le ha dado valor todavía".**
 
@@ -317,9 +221,7 @@ console.log(usuario); // ➡️ undefined
 
 ```
 
-<a name="2-null-intencionalmente-vacio"></a>
 ### 2. `null` (Intencionalmente vacío) 📭
-[🏠](#resources) | [⬅️](#1-undefined-no-inicializado) | [➡️](#3-void-vacio-sin-retorno)
 
 **"Existe, y le he puesto un valor 'vacío' a propósito".**
 
@@ -339,9 +241,7 @@ usuario = null;
 
 ```
 
-<a name="3-void-vacio-sin-retorno"></a>
 ### 3. `void` (Vacío / Sin retorno) 🕳️
-[🏠](#resources) | [⬅️](#2-null-intencionalmente-vacio) | [➡️](#resumen-para-tu-cheat-sheet-mental)
 
 **"Esto es una acción, no un valor".**
 
@@ -363,9 +263,7 @@ const resultado = mostrarAlerta(); // ¿Qué guardas aquí? Nada.
 
 ---
 
-<a name="resumen-para-tu-cheat-sheet-mental"></a>
 ### Resumen para tu "Cheat Sheet" mental 🧠
-[🏠](#resources) | [⬅️](#3-void-vacio-sin-retorno) | [➡️](#cuando-usar-cual)
 
 | Concepto | Tipo | Significado Humano | Ejemplo de la vida real |
 | --- | --- | --- | --- |
@@ -373,37 +271,26 @@ const resultado = mostrarAlerta(); // ¿Qué guardas aquí? Nada.
 | **null** | Valor | "Lo dejé en blanco aposta" | Una casilla de formulario que dice "Opcional". |
 | **void** | Solo Tipo | "No devuelve nada" | Gritar "¡Hola!" al aire (haces la acción, pero no te llevas nada físico a casa). |
 
-<a name="cuando-usar-cual"></a>
 ### ¿Cuándo usar cuál?
-[🏠](#resources) | [⬅️](#resumen-para-tu-cheat-sheet-mental) | [➡️](#323-never)
 
 1. **¿Variable sin valor inicial?** Deja que sea `undefined`.
 2. **¿Resetear un campo o decir "sin selección"?** Usa `null`.
 3. **¿Definir una función que no tiene `return`?** Usa `void`.
 
-<a name="323-never"></a>
 ## 3.23 Never
-[🏠](#resources) | [⬅️](#cuando-usar-cual) | [➡️](#324-strictnullchecks)
-
 es una funcion que usualmente va a terminar con un error.
-```typescript
+```ts
 const error =(message:string):never=>{
     throw new Error(message);
 }
 error('failed!');
 ```
 
-<a name="324-strictnullchecks"></a>
 ## 3.24 StrictNullChecks
-[🏠](#resources) | [⬅️](#323-never) | [➡️](#4-funciones-y-objetos)
-
 Pongan typescript lo mas reestrictivo, no empiecen a cambiar el archivo
 un valor boolean tsconfig.json ¿para qué sino estan ustedes usando ts?
 
-<a name="4-funciones-y-objetos"></a>
 # 4. Funciones y objetos
-[🏠](#resources) | [⬅️](#324-strictnullchecks) | [➡️](#429-funciones-parametros)
-
 Puntualmente tenemos:
     Declaraciones básicas de funciones
     Parámetros obligatorios
@@ -414,14 +301,11 @@ Puntualmente tenemos:
 
 
 
-<a name="429-funciones-parametros"></a>
 ## 4.29 Funciones Parámetros
-[🏠](#resources) | [⬅️](#4-funciones-y-objetos) | [➡️](#430-parametros-por-defecto-y-opcionales)
-
 veamos 2 cosas:
 1.tipado con multiples parámetros (véase lastName)
 2. El tipado no quiere decir que sea infalible, fíjate en noName, ts no da error pues se le pasa un string.
-`diff
+```diff
 (()=>{
 //                                                             👇
 +     const fullName = (firstName:string, lastName:(string | boolean))=>{
@@ -435,14 +319,9 @@ const name2 = fullName(noName, 'Smith');
 console.log({name})
 ```
 
-<a name="430-parametros-por-defecto-y-opcionales"></a>
 ## 4.30 parametros por defecto y opcionales
-[🏠](#resources) | [⬅️](#429-funciones-parametros) | [➡️](#puntos-clave-de-este-codigo)
-
 Aquí tienes el código exacto que aparece en la imagen transcrito para que puedas copiarlo y pegarlo:
-<a name="puntos-clave-de-este-codigo"></a>
 ### Puntos clave de este código:
-[🏠](#resources) | [⬅️](#430-parametros-por-defecto-y-opcionales) | [➡️](#434-tipo-function)
 
 0. **`): string =>`** es lo que hace que TypeScript sea "seguro". Se llama Tipo de Retorno (Return Type).
 1. **`lastName?: string`**: El signo de interrogación indica que el parámetro es **opcional**.
@@ -491,10 +370,7 @@ Parámetros REST
 })()
 ```
 
-<a name="434-tipo-function"></a>
 ## 4.34 Tipo Function
-[🏠](#resources) | [⬅️](#puntos-clave-de-este-codigo) | [➡️](#5-objetos-y-tipos-personalizados-en-typescript)
-
 En lugar de dejar let myFunction; (que es any y un peligro), vamos a definir la firma exacta que debe tener la variable para aceptar cada función.
 ```typescript
 (() => {
@@ -502,7 +378,7 @@ En lugar de dejar let myFunction; (que es any y un peligro), vamos a definir la 
     // --- FUNCIONES ORIGINALES ---
     const addNumbers = ( a: number, b: number ) => a + b;
     const greet = ( name: string ) => `Hola ${ name }`;
-    const saveTheWorld = () => `El mundo está salvado!`
+    const saveTheWorld = () => `El mundo está salvado!`;
 
 
     // ---------------------------------------------------------
@@ -609,10 +485,7 @@ let noHaceNadaTampoco: ( n: number, t: string, b: boolean, a: string[] ) => void
 noHaceNadaTampoco = noHaceNada;
 ```
 
-<a name="5-objetos-y-tipos-personalizados-en-typescript"></a>
 # 5. Objetos y tipos personalizados en TypeScript
-[🏠](#resources) | [⬅️](#434-tipo-function) | [➡️](#538-metodos-dentro-de-objetos)
-
     Objetos básicos
     Crear objetos con tipos específicos
     Crear métodos dentro de objetos
@@ -622,10 +495,7 @@ noHaceNadaTampoco = noHaceNada;
 
 
 
-<a name="538-metodos-dentro-de-objetos"></a>
 # 5.38 Métodos dentro de objetos
-[🏠](#resources) | [⬅️](#5-objetos-y-tipos-personalizados-en-typescript) | [➡️](#530-custom-type-tipos-personalizados)
-
 ```typescript
 (() => {
 
@@ -660,9 +530,7 @@ noHaceNadaTampoco = noHaceNada;
 })()
 ```
 
-<a name="530-custom-type-tipos-personalizados"></a>
 ## 5.30. Custom Type (tipos personalizados)
-[🏠](#resources) | [⬅️](#538-metodos-dentro-de-objetos) | [➡️](#530-custom-multi-type-multiples-tipos-personalizados)
 
 ```typescript
 (()=>{
@@ -688,9 +556,7 @@ noHaceNadaTampoco = noHaceNada;
     }
 })()
 ```
-<a name="530-custom-multi-type-multiples-tipos-personalizados"></a>
 ## 5.30. Custom Multi Type (múltiples tipos personalizados)
-[🏠](#resources) | [⬅️](#530-custom-type-tipos-personalizados) | [➡️](#6-depuracion)
 
 ```typescript
 (()=>{
@@ -800,17 +666,13 @@ mystique = charles;
 mystique = apocalipsis;
 ```
 
-<a name="6-depuracion"></a>
 # 6. Depuración
-[🏠](#resources) | [⬅️](#530-custom-multi-type-multiples-tipos-personalizados) | [➡️](#6-outfile-unificar-todos-tus-archivos-en-uno-solo-mainjs)
-
 un problema que encontramos es que al depurar en el console de chrome nos indica al linea del archivo .js en lugar de nuestro archivo .ts y esto es un inconveniente, para solucionarlo:
 
 1º open tsconfig.json
 remove comments from:
-`"SourceMap": true,
-```
-on terminal again run ```typescriptc -w`
+`"SourceMap": true,`
+on terminal again run `tsc -w`
 
 y ahora en tu directorio de archivos veras que aparecen unos archivos llamados:
 *.js.map
@@ -833,10 +695,7 @@ Si quieres remover los comentarios en Producción:
 tsconfig.json > "removeComments: true"
 
 
-<a name="6-outfile-unificar-todos-tus-archivos-en-uno-solo-mainjs"></a>
 # 6. outFile (unificar todos tus archivos en uno solo main.js)
-[🏠](#resources) | [⬅️](#6-depuracion) | [➡️](#653-desestructuracion-de-objetos-en-es6)
-
 ventajas:
 - de este modo no se generan tantos archivos *.js
 - no se ensucia nuestro directorio y queda todo unificado en main.js
@@ -845,9 +704,7 @@ ventajas:
 
 ![alt text](src/2026_02_03_12-19-45.png)
 
-<a name="653-desestructuracion-de-objetos-en-es6"></a>
 # 6.53 Desestructuracion de Objetos en ES6
-[🏠](#resources) | [⬅️](#6-outfile-unificar-todos-tus-archivos-en-uno-solo-mainjs) | [➡️](#654-tuples-y-desestructuracion-de-arrays)
 
 
 ```typescript
@@ -894,10 +751,7 @@ ventajas:
 
 ```
 
-<a name="654-tuples-y-desestructuracion-de-arrays"></a>
 # 6.54 TUPLES Y DESESTRUCTURACIÓN DE ARRAYS
-[🏠](#resources) | [⬅️](#653-desestructuracion-de-objetos-en-es6) | [➡️](#655-for-clasico-vs-desestructuracion)
-
 ```typescript
 
     // Esto no es un array normal, es una 'Tuple' (sabe qué tipo va en cada posición exacta)
@@ -915,7 +769,7 @@ ventajas:
     
     console.log({ ironman, capitan })
 // 👇 ESTO ES LO QUE SALE EN PANTALLA:
-// {
+// { 
 //   ironman: true,          <-- Fíjate que aquí ironman es el booleano del array
 //   capitan: 'Cap. América' 
 // }
@@ -923,10 +777,7 @@ ventajas:
 ```
 
 
-<a name="655-for-clasico-vs-desestructuracion"></a>
 # 6.55 for clasico VS desestructuración
-[🏠](#resources) | [⬅️](#654-tuples-y-desestructuracion-de-arrays) | [➡️](#655-for-clasico-vs-desestructuracion-con-instancias-sueltas)
-
 ```typescript
 (() => {
 
@@ -996,10 +847,7 @@ ventajas:
 ```
 
 
-<a name="655-for-clasico-vs-desestructuracion-con-instancias-sueltas"></a>
 # 6.55 for clasico VS desestructuración con instancias sueltas
-[🏠](#resources) | [⬅️](#655-for-clasico-vs-desestructuracion) | [➡️](#757-clases-es6)
-
 ```typescript
 (() => {
 
@@ -1084,10 +932,7 @@ ventajas:
 ```
 
 
-<a name="757-clases-es6"></a>
 # 7.57. Clases ES6
-[🏠](#resources) | [⬅️](#655-for-clasico-vs-desestructuracion-con-instancias-sueltas) | [➡️](#779-array-destructuring)
-
 ```typescript
 (()=> {
 
@@ -1117,19 +962,17 @@ ventajas:
 })()
 ```
 
-<a name="779-array-destructuring"></a>
 # 7.79. Array Destructuring
-[🏠](#resources) | [⬅️](#757-clases-es6) | [➡️](#858-clases-en-typescript)
 
 Método clásico:
-```typescript
+```ts
 let frutas = ["Pera", "Manzana"];
 let pera = frutas[0];    // Tengo que saber que es el 0
 let manzana = frutas[1]; // Tengo que saber que es el 1
 ```
 
 Método destructuring:
-```typescript
+```ts
 let frutas: string[] = ["Pera", "Manzana"];
 //                        ⬆️       ⬆️
 //                     Posición 0  Posición 1
@@ -1150,10 +993,7 @@ console.log( manzana ); // Salida: "Manzana"
 
 ```
 
-<a name="858-clases-en-typescript"></a>
 # 8.58 Clases en TypeScript
-[🏠](#resources) | [⬅️](#779-array-destructuring) | [➡️](#clean-code-y-deuda-tecnica)
-
     - Crear clases en TypeScript
     - Constructores
     - Accesibilidad de las propiedades:
@@ -1178,12 +1018,9 @@ no tiene acceso a métodos private, pero si public.
 ![alt text](src/2026_02_04_11-10-04.png)
 
 
-<a name="860-clases-el-fundamento-encapsulamiento-statics-y-getterssetters"></a>
 # 8.60 CLASES. El Fundamento: Encapsulamiento, Statics y Getters/Setters 🏗️
-[🏠](#resources) | [⬅️](#858-clases-en-typescript) | [➡️](#861-clases-la-jerarquia-herencia-abstract-y-super)
-
 Aquí aprendemos a proteger datos y usar propiedades globales.
-```typescript
+```ts
 (() => {
     class Department {
 
@@ -1197,7 +1034,6 @@ Aquí aprendemos a proteger datos y usar propiedades globales.
             public name: string,
             private id: string,
         ) {
-            // Al definirlo fuera del constructor, yo (el programador) controlo el valor inicial.Si lo pusiera dentro del costructor cualquier podria truncar el valor.
             this._budget = 0;
         }
 
@@ -1233,16 +1069,50 @@ Aquí aprendemos a proteger datos y usar propiedades globales.
     // 📢 OUTPUT: Tech Solutions Inc.
 
 })();
+
+        // ⚙️ GETTER: Parece una propiedad, pero es una función.
+        // Sirve para leer datos privados o modificados.
+        get budgetInfo(): string {
+            return `El presupuesto es: ${this._budget} €`;
+        }
+
+        // ⚙️ SETTER: Sirve para validar datos antes de guardarlos.
+        set setBudget( amount: number ) {
+            if ( amount < 0 ) {
+                throw new Error('El presupuesto no puede ser negativo');
+            }
+            this._budget = amount;
+        }
+
+        // 🔓 MÉTODO PÚBLICO
+        public printInfo() {
+            console.log(`Dpto: ${this.name} (${Department.companyName})`);
+        }
+
+        // 🗿 MÉTODO ESTÁTICO: Se llama sin crear objetos
+        static getCompany() {
+            return Department.companyName;
+        }
+    }
+
+    // --- PRUEBAS ---
+    const it = new Department('Informática', 'IT-01', 'Planta 2');
+
+    // 1. Uso de Setters y Getters
+    it.setBudget = 5000;          // ✅ Usamos el Setter
+    console.log( it.budgetInfo ); // ✅ Usamos el Getter
+    
+    // 2. Uso de Static
+    console.log( Department.getCompany() ); // ✅ Llamada directa a la Clase
+
+})();
 ```
 
-<a name="861-clases-la-jerarquia-herencia-abstract-y-super"></a>
 # 8.61 CLASES. La Jerarquía: Herencia, Abstract y Super 👨‍👦
-[🏠](#resources) | [⬅️](#860-clases-el-fundamento-encapsulamiento-statics-y-getterssetters) | [➡️](#862-clases-nivel-experto-constructor-privado-singleton)
-
 Aquí aprendemos cómo unas clases heredan de otras.
 
 Usaremos Clases Abstractas. Imagina que tenemos Person (Genérico) y Employee (Específico). Nota: Una clase abstracta es un molde base que NO se puede instanciar directamente (no puedes hacer new Person()), solo sirve para heredar.
-```typescript
+```ts
 (() => {
 
     // 👻 ABSTRACT
@@ -1297,10 +1167,7 @@ Usaremos Clases Abstractas. Imagina que tenemos Person (Genérico) y Employee (E
 })();
 ```
 
-<a name="862-clases-nivel-experto-constructor-privado-singleton"></a>
 # 8.62. CLASES. Nivel Experto: Constructor Privado (Singleton) 💍
-[🏠](#resources) | [⬅️](#861-clases-la-jerarquia-herencia-abstract-y-super) | [➡️](#clean-code-y-deuda-tecnica)
-
 Aquí cubrimos el "Constructor Privado" que viste al final (como el ejemplo de Apocalipsis).
 
 Esto se llama patrón Singleton. Sirve para asegurar que SOLO EXISTA UNA INSTANCIA de una clase en toda la app (muy útil para conexiones a Base de Datos o Configuraciones).
@@ -1342,499 +1209,4 @@ Esto se llama patrón Singleton. Sirve para asegurar que SOLO EXISTA UNA INSTANC
     // (Confirma que ambas variables apuntan al MISMO objeto en memoria)
 
 })();
-```
-
-# 9. Diferencias principales entre interface y type
-Esta es la "pregunta del millón" en TypeScript. A efectos prácticos, **en el 90% de los casos hacen exactamente lo mismo** y puedes usar cualquiera de los dos.
-
-Sin embargo, hay **una diferencia fundamental** (la principal) y un par de matices de uso.
-
-### 1. La Diferencia Principal: "Declaration Merging" (Fusión) 🤝
-
-Esta es la razón por la que las librerías usan `interface`.
-
-* **Interfaces:** Son **abiertas**. Si defines una interfaz dos veces con el mismo nombre, TypeScript las **fusiona** (las suma).
-* **Types:** Son **cerrados**. Una vez creado, no puedes volver a abrirlo para añadirle cosas. Si lo intentas, te da error de "Duplicado".
-
-**Mira el ejemplo:**
-
-```typescript
-(() => {
-    // ✅ INTERFACES: Se suman (Merging)
-    // ------------------------------------------------
-    interface Persona {
-        nombre: string;
-    }
-
-    interface Persona {
-        edad: number;
-    }
-
-    // Al final, 'Persona' tiene AMBAS cosas:
-    const yo: Persona = {
-        nombre: 'Manuel',
-        edad: 30
-    };
-
-
-    // ❌ TYPES: Chocan (Error)
-    // ------------------------------------------------
-    type Perro = {
-        raza: string;
-    }
-
-    // ⛔ Error: Duplicate identifier 'Perro'.
-    /*
-    type Perro = {
-        ladra: boolean;
-    }
-    */
-
-})()
-
-```
-
-### 2. La Segunda Diferencia: Flexibilidad (Uniones e Intersecciones) 🔀
-
-Los `type` son mucho más potentes para crear "fórmulas matemáticas" con los tipos. Las `interface` solo sirven para definir formas de objetos.
-
-* **Type:** Puede definir uniones (`|`), tuplas, primitivos, etc.
-* **Interface:** Solo define la estructura de un objeto `{ key: value }`.
-
-**Lo que SOLO puede hacer un Type:**
-
-```typescript
-// 1. Uniones (O una cosa O la otra) -> ¡Esto es súper útil!
-type Estado = 'Activo' | 'Inactivo' | 'Pendiente';
-type ID = string | number;
-
-// 2. Renombrar primitivos
-type Nombre = string;
-
-// 3. Tuplas (Arrays fijos)
-type Coordenadas = [number, number];
-
-```
-
-Si intentas hacer `interface ID { string | number }`, te dará error. Las interfaces no entienden el "O".
-
----
-
-### 3. ¿Cómo se "extienden" (Herencia)?
-
-Aquí es donde más se parecen, pero la sintaxis cambia.
-
-**Con Interface (Usando `extends`):**
-Es más "orientado a objetos" (como vimos en las clases).
-
-```typescript
-interface Animal {
-    nombre: string;
-}
-
-interface Gato extends Animal {
-    maulla: boolean;
-}
-
-```
-
-**Con Type (Usando Intersección `&`):**
-Es más "matemático". Dices: "Quiero un tipo que sea A **Y** B a la vez".
-
-```typescript
-type Animal = {
-    nombre: string;
-}
-
-type Gato = Animal & {
-    maulla: boolean;
-}
-
-```
-
----
-
-### 🏆 Resumen: ¿Cuál uso?
-
-Aquí tienes mi regla de oro (y la que recomienda el equipo de TypeScript):
-
-1. **Usa `interface**` por defecto para definir **Objetos** (como `User`, `Product`, `Car`).
-* *¿Por qué?* Porque los mensajes de error de TypeScript suelen ser más limpios y se compila un pelín más rápido.
-* *¿Cuándo más?* Si estás creando una librería pública y quieres que otros desarrolladores puedan "añadir" propiedades a tus interfaces (Merging).
-
-
-2. **Usa `type**` cuando necesites:
-* **Uniones** (`string | number`).
-* **Tuplas** (`[string, number]`).
-* **Alias simples** (`type ID = string`).
-* Definir **Funciones** complejas.
-
-
-
-**En resumen:**
-
-* ¿Es un Objeto normal? 👉 **Interface**
-* ¿Es una mezcla rara, un "O esto O lo otro", o un alias? 👉 **Type**
-
-
-
-
-
-# 9.68. Interfaces basicas
-la diferencia entre los tipos e interfaces es muy similar y probablemente en muchos casos da igual usar una o la otra, la DIFERENICA ENTRE ELLOS ES QUE LAS INTERFACES SON EXTENDABLE Y LOS TYPOS NO.
-Una interfaz es como una clase perezosa, lo unico que le importa es que tu la implementes sin importarle lo que hagas con ellas.
-Type se puede usar cuando nosotros sepamos que no se van a extender.
-Las interfaces no crean instancias.
-
-```typescript
-(() => {
-
-    // 1. INTERFAZ SECUNDARIA (El objeto pequeño anidado) 🧩
-    // -------------------------------------------------
-    // Equivalente a 'Address' en tu imagen.
-    // Define cómo deben ser los datos de tendencias.
-    interface TrendData {
-        growth: number;      // ej: 15%
-        direction: string;   // ej: 'UP' o 'DOWN'
-        comparedTo: string;  // ej: 'Last Year'
-    }
-
-
-    // 2. INTERFAZ PRINCIPAL (El objeto grande) 📦
-    // -------------------------------------------------
-    // Equivalente a 'Client' en tu imagen.
-    interface MonthReport {
-        month: string;       // El nombre del mes
-        totalVisits: number; // Estadísticas base
-        sales: number;
-        
-        // 👇 AQUÍ ESTÁ LA CLAVE:
-        // Usamos la interfaz 'TrendData' como tipo para esta propiedad.
-        stats: TrendData;    
-    }
-
-
-    // 3. CREACIÓN DEL OBJETO (Rellenando los datos) 📝
-    // -------------------------------------------------
-    const februaryReport: MonthReport = {
-        month: 'February 2026',
-        totalVisits: 45000,
-        sales: 3200,
-        
-        // Objeto anidado (debe cumplir con la interfaz TrendData)
-        stats: {
-            growth: 12.5,
-            direction: 'UP',
-            comparedTo: 'January 2026'
-        }
-    }
-
-
-    // 4. IMPRESIÓN Y ACCESO A DATOS 🖨️
-    // -------------------------------------------------
-    console.log( februaryReport );
-
-    // 📢 OUTPUT REAL (Objeto completo):
-    /*
-    {
-      month: 'February 2026',
-      totalVisits: 45000,
-      sales: 3200,
-      stats: {
-        growth: 12.5,
-        direction: 'UP',
-        comparedTo: 'January 2026'
-      }
-    }
-    */
-
-
-    // ACCEDIENDO A DATO ANIDADO
-    console.log( `Crecimiento: ${februaryReport.stats.growth}%` );
-    
-    // 📢 OUTPUT:
-    // Crecimiento: 12.5%
-
-})()
-```
-
-# 9.69 Interfaces con estructuras complejas
-```typescript
-(() => {
-
-    // 1. DEFINICIÓN DE LA INTERFAZ 📋
-    // -------------------------------------------------
-    interface CartItem {
-        productName: string;
-        price: number;
-        quantity: number;
-
-        // 👇 FORMA A: Sintaxis clásica de método
-        // "Este objeto debe tener una función que devuelva un número"
-        calculateTotal(): number;
-
-        // 👇 FORMA B: Sintaxis de función de flecha (Es lo mismo)
-        // "addDiscount debe recibir un porcentaje y no devolver nada (void)"
-        addDiscount: ( percent: number ) => void;
-    }
-
-
-    // 2. IMPLEMENTACIÓN DEL OBJETO 🏗️
-    // -------------------------------------------------
-    const myLaptop: CartItem = {
-        productName: 'MacBook Pro',
-        price: 1500,
-        quantity: 2,
-
-        // ✅ Implementamos el método calculateTotal
-        calculateTotal() {
-            return this.price * this.quantity;
-        },
-
-        // ✅ Implementamos el método addDiscount
-        addDiscount( percent: number ) {
-            const discountAmount = (this.price * percent) / 100;
-            this.price -= discountAmount;
-            console.log(`Descuento aplicado: -${discountAmount}€`);
-        }
-    }
-
-
-    // 3. USO DE LOS MÉTODOS 🚀
-    // -------------------------------------------------
-    
-    // A) Probamos el cálculo inicial
-    console.log( `Total bruto: ${ myLaptop.calculateTotal() }€` );
-    // 📢 OUTPUT: Total bruto: 3000€ (1500 * 2)
-
-
-    // B) Aplicamos un método que modifica el objeto (void)
-    myLaptop.addDiscount(10); // 10% de descuento
-    // 📢 OUTPUT: Descuento aplicado: -150€
-
-
-    // C) Volvemos a calcular para ver el cambio
-    console.log( `Nuevo Total: ${ myLaptop.calculateTotal() }€` );
-    // 📢 OUTPUT: Nuevo Total: 2700€ (1350 * 2)
-
-})()
-```
-
-
-# 9.70. Interfaces - métodos en la interfaz
-- una clase no puede hacer extends de una interfaz tiene que hacer IMPLEMENTS.
-- Con las interfaces NO hacemos inicialización del objeto con new.
-- Aqui vemos como los objetos que implementen la interfaz deben añadir el método indicado en ella, da igual lo que hagan estos métodos, como si no hacen nada, el caso es que los objetos están obligados a implementarlos.
-
-```typescript
-(() => {
-
-    // 1. LA INTERFAZ (El contrato) 📜
-    // -------------------------------------------------
-    interface Client {
-        name: string;
-        wallet: number;
-
-        // 👇 DEFINICIÓN DE MÉTODOS
-        // Forma A (Clásica): "Recibo un número, no devuelvo nada (void)"
-        buy( amount: number ): void;
-
-        // Forma B (Flecha): "No recibo nada, devuelvo un string"
-        getStatus: () => string;
-    }
-
-
-    // 2. EL OBJETO (La implementación real) 🏗️
-    // -------------------------------------------------
-    const netflixUser: Client = {
-        name: 'Juan Pérez',
-        wallet: 50, // Empezamos con 50€
-
-        // ✅ Implementamos la lógica de 'buy'
-        buy( amount: number ) {
-            if ( this.wallet >= amount ) {
-                this.wallet -= amount; // Restamos dinero
-                console.log(`✅ Compra realizada por ${amount}€. Quedan: ${this.wallet}€`);
-            } else {
-                console.log('❌ Saldo insuficiente');
-            }
-        },
-
-        // ✅ Implementamos la lógica de 'getStatus'
-        getStatus() {
-            return `${this.name} tiene ${this.wallet}€ disponibles.`;
-        }
-    }
-
-
-    // 3. PROBANDO LOS MÉTODOS 🚀
-    // -------------------------------------------------
-    
-    console.log( netflixUser.getStatus() );
-    // 📢 OUTPUT: Juan Pérez tiene 50€ disponibles.
-
-
-    netflixUser.buy( 15 ); 
-    // 📢 OUTPUT: ✅ Compra realizada por 15€. Quedan: 35€
-
-
-    netflixUser.buy( 100 ); 
-    // 📢 OUTPUT: ❌ Saldo insuficiente
-
-})()
-```
-
-
-# 9.71 Interfaces en las clases
-```ts
-(() => {
-
-    // 1. PRIMERA INTERFAZ (Datos Personales) 👤 
-    // -------------------------------------------------
-    interface PersonInfo {
-        name: string;
-        age: number;
-        // Un método obligatorio
-        showStatus( id: number ): string;
-    }
-
-
-    // 2. SEGUNDA INTERFAZ (Datos Geográficos) 🌍 
-    // -------------------------------------------------
-    interface GeoData {
-        country: string;
-    }
-
-
-    // 3. LA CLASE IMPLEMENTADORA (El mix) 🏗️ 
-    // -------------------------------------------------
-    // 👇 Fíjate en la coma: "Prometo cumplir PersonInfo Y ADEMÁS GeoData"
-    class Citizen implements PersonInfo, GeoData {
-
-        // Al usar 'public' dentro del constructor, TypeScript crea las propiedades 
-        // automáticamente y así cumplimos con las interfaces de arriba.
-        constructor(
-            public name: string,
-            public age: number,
-            public country: string
-        ) {}
-
-
-        // ✅ Implementación del método obligatorio de 'PersonInfo'
-        showStatus( id: number ) {
-            return `ID: ${id} - ${this.name} vive en ${this.country}`;
-        }
-
-    }
-
-
-    // 4. PRUEBAS 🚀
-    // -------------------------------------------------
-    const john = new Citizen('john', 30, 'España');
-
-    console.log( john.showStatus(55) );
-    // 📢 OUTPUT: ID: 55 - john vive en España
-
-})()
-```
-
-
-# 9.72. Interfaces para las funciones
-```typescript
-(() => {
-
-    // ==========================================
-    // EJEMPLO 1: EL DE LA IMAGEN (Matemático) 🧮
-    // ==========================================
-
-    // 1. DEFINICIÓN DE LA INTERFAZ DE FUNCIÓN
-    // ---------------------------------------
-    // "Cualquier función que use esta interfaz TIENE QUE:
-    //  - Recibir 2 números (a y b)
-    //  - Devolver un número obligatoriamente"
-    interface MathOperation {
-        ( a: number, b: number ): number;
-    }
-
-
-    // 2. DECLARAMOS LA VARIABLE USANDO LA INTERFAZ
-    let addNumbers: MathOperation;
-
-
-    // 3. LA RELLENAMOS CON LA LÓGICA
-    addNumbers = ( a: number, b: number ) => {
-        return a + b;
-    };
-
-    console.log( `Suma: ${ addNumbers(10, 5) }` ); // Output: 15
-
-
-
-    // ==========================================
-    // EJEMPLO 2: CON DATOS DE PERSONA 👤
-    // ==========================================
-
-    // 1. INTERFAZ
-    // "Quiero una función que reciba nombre y país, y me devuelva una frase (string)"
-    interface Greeter {
-        ( name: string, country: string ): string;
-    }
-
-    // 2. IMPLEMENTACIÓN DIRECTA
-    const welcomeUser: Greeter = ( name, country ) => {
-        return `Bienvenido: ${name} desde ${country}`;
-    };
-
-    // Usamos datos de ejemplo neutrales
-    console.log( welcomeUser('Tony Stark', 'USA') );
-    // Output: Bienvenido: Tony Stark desde USA
-
-})()
-```
-
-# 9.73. Interfaces con parametros opcionales
-```ts
-interface Persona {
-  nombre: string; // propiedad obligatoria
-  edad?: number;   // propiedad opcional
-  email?: string;  // propiedad opcional
-}
-
-function mostrarPersona(persona: Persona): void {
-  console.log(`Nombre: ${persona.nombre}`);
-  if (persona.edad !== undefined) {
-    console.log(`Edad: ${persona.edad}`);
-  }
-  if (persona.email !== undefined) {
-    console.log(`Email: ${persona.email}`);
-  }
-}
-
-// Ejemplo de uso
-const persona1: Persona = { nombre: "Juan" };
-const persona2: Persona = { nombre: "Ana", edad: 30, email: "ana@example.com" };
-
-mostrarPersona(persona1);
-mostrarPersona(persona2);
-```
-
-# 9.74. Interfaces heredar interfaces con extends
-
-```ts
-    interface Carro{
-      llantas:number;
-      modelo:string;
-    }
-     
-    interface Volvo extends Carro{
-      seguro:boolean;
-    }
-     
-    var volvo:Volvo = {
-      llantas: 4,
-      modelo:"sedan",
-      seguro:true
-      
-    }
-
 ```
